@@ -17,7 +17,7 @@ export const siteConfig = {
 
 export const heroCopy = {
   title: "Frontend Developer",
-  subtitle: "AI 시대에 맞춰 성장하는 개발자입니다",
+  subtitle: "멋진 웹 경험을 만드는 개발자입니다",
   cta1: "프로젝트 보기",
   cta2: "연락하기",
 };
