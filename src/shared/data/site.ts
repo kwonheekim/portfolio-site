@@ -8,16 +8,16 @@ export const siteConfig = {
   author: "Your Name",
   url: "https://yourportfolio.com",
   links: {
-    github: "https://github.com/your-username",
-    linkedin: "https://linkedin.com/in/your-profile",
+    github: "https://github.com/kwonheekim",
+    linkedin: "https://www.linkedin.com/in/kwonhee-kim/",
     twitter: "https://twitter.com/your-handle",
-    email: "your.email@example.com",
+    email: "kimkwon429@naver.com",
   },
 };
 
 export const heroCopy = {
   title: "Frontend Developer",
-  subtitle: "멋진 웹 경험을 만드는 개발자입니다",
+  subtitle: "빠르게 진화하는 AI 기술과 함께 성장하는 프론트엔드 개발자입니다.",
   cta1: "프로젝트 보기",
   cta2: "연락하기",
 };

@@ -1,9 +1,8 @@
 import { motion } from "motion/react";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import styled from "@emotion/styled";
 import { Button } from "@/shared/ui";
-import { scrollToSection } from "@/shared/utils";
-import { heroCopy } from "@/shared/data";
+import { heroCopy, siteConfig } from "@/shared/data";
 import { lightTheme } from "@/styles/emotion-theme";
 
 const HeroSection = styled.section`
@@ -66,11 +65,6 @@ const HeroButtonGroup = styled(motion.div)`
   }
 `;
 
-const AnimatedArrow = styled(motion.span)`
-  display: inline-block;
-  margin-left: 8px;
-`;
-
 const HeroArrowContainer = styled(motion.div)`
   position: absolute;
   bottom: 48px;
@@ -110,22 +104,27 @@ export function Hero() {
           >
             <Button
               size="lg"
-              onClick={() => scrollToSection("projects")}
+              variant="outline"
+              onClick={() => window.open(siteConfig.links.github, "_blank")}
             >
-              {heroCopy.cta1}
-              <AnimatedArrow
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                →
-              </AnimatedArrow>
+              <Github size={20} />
+              GitHub
             </Button>
             <Button
               size="lg"
               variant="outline"
-              onClick={() => scrollToSection("contact")}
+              onClick={() => window.open(siteConfig.links.linkedin, "_blank")}
             >
-              {heroCopy.cta2}
+              <Linkedin size={20} />
+              LinkedIn
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => window.location.href = `mailto:${siteConfig.links.email}`}
+            >
+              <Mail size={20} />
+              Email
             </Button>
           </HeroButtonGroup>
         </motion.div>
