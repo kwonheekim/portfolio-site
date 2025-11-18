@@ -6,18 +6,18 @@ export interface SkillGroup {
 export const skillsData: SkillGroup[] = [
   {
     category: "Frontend",
-    items: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+    items: ["React.js", "Next.js", "JavaScript", "TypeScript", "React Native"],
   },
   {
     category: "State Management",
-    items: ["Redux", "Zustand", "React Query"],
+    items: ["Recoil", "React Query"],
+  },
+  {
+    category: "Styling",
+    items: ["Styled-components", "Emotion"],
   },
   {
     category: "Tools",
-    items: ["Git", "Figma", "Webpack", "Vite"],
-  },
-  {
-    category: "Others",
-    items: ["REST API", "GraphQL", "Testing", "Responsive Design"],
+    items: ["Notion", "Slack", "GitHub", "VSC", "Figma", "Zeplin", "Adobe XD"],
   },
 ];
