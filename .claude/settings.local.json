@@ -37,7 +37,9 @@
       "Bash(node generate_pdf.js:*)",
       "Bash(chmod:*)",
       "Bash(timeout 30 yarn start:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "WebFetch(domain:emotion.sh)",
+      "Bash(yarn add @emotion/react @emotion/styled @emotion/css)"
     ],
     "deny": [],
     "ask": []

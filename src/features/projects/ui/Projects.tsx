@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
+import styled from "@emotion/styled";
 import {
   Card,
   CardContent,
@@ -12,58 +13,139 @@ import {
 } from "@/shared/ui";
 import { ExternalLink, Github } from "lucide-react";
 import { projectsData } from "@/shared/data";
+import { lightTheme } from "@/styles/emotion-theme";
+
+const ProjectsSection = styled.section`
+  padding-top: 96px;
+  padding-bottom: 96px;
+  padding-left: 24px;
+  padding-right: 24px;
+  background-color: ${lightTheme.colors.gray50};
+`;
+
+const ProjectsContainer = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80rem;
+  width: 100%;
+`;
+
+const ProjectsTitle = styled(motion.h2)`
+  margin-bottom: 48px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: ${lightTheme.colors.foreground};
+
+  @media (min-width: ${lightTheme.breakpoints.md}) {
+    font-size: 2rem;
+  }
+`;
+
+const ProjectsGrid = styled.div`
+  display: grid;
+  gap: 32px;
+
+  @media (min-width: ${lightTheme.breakpoints.md}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: ${lightTheme.breakpoints.lg}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const ProjectCard = styled(motion.div)`
+  height: 100%;
+`;
+
+const ProjectImagePlaceholder = styled.div<{ gradient: string }>`
+  height: 192px;
+  background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+const TechBadgesContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+const ActionLinksContainer = styled.div`
+  display: flex;
+  gap: 8px;
+
+  a {
+    flex: 1;
+    text-decoration: none;
+
+    button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+      }
+    }
+  }
+`;
 
 export function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="py-24 px-6 bg-gray-50">
-      <div className="container mx-auto max-w-6xl" ref={ref}>
-        <motion.h2
-          className="mb-12 text-center"
+    <ProjectsSection id="projects">
+      <ProjectsContainer ref={ref}>
+        <ProjectsTitle
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6 }}
         >
           Projects
-        </motion.h2>
+        </ProjectsTitle>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <ProjectsGrid>
           {projectsData.map((project, index) => (
-            <motion.div
+            <ProjectCard
               key={project.title}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -8 }}
             >
-              <Card className="h-full cursor-pointer overflow-hidden group">
-                <div
-                  className={`h-48 bg-gradient-to-br ${project.gradient} transition-transform group-hover:scale-105`}
-                />
+              <Card style={{ height: "100%", cursor: "pointer", overflow: "hidden" }}>
+                <ProjectImagePlaceholder gradient={project.gradient} />
                 <CardHeader>
                   <CardTitle>{project.title}</CardTitle>
                   <CardDescription>{project.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex flex-wrap gap-2">
+                <CardContent style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                  <TechBadgesContainer>
                     {project.tech.map((tech) => (
                       <Badge key={tech} variant="outline">
                         {tech}
                       </Badge>
                     ))}
-                  </div>
-                  <div className="flex gap-2">
+                  </TechBadgesContainer>
+                  <ActionLinksContainer>
                     {project.githubUrl && (
                       <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1"
                       >
-                        <Button size="sm" variant="outline" className="w-full">
-                          <Github className="w-4 h-4 mr-2" />
+                        <Button size="sm" variant="outline">
+                          <Github />
                           Code
                         </Button>
                       </a>
@@ -73,21 +155,20 @@ export function Projects() {
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1"
                       >
-                        <Button size="sm" className="w-full">
-                          <ExternalLink className="w-4 h-4 mr-2" />
+                        <Button size="sm">
+                          <ExternalLink />
                           Demo
                         </Button>
                       </a>
                     )}
-                  </div>
+                  </ActionLinksContainer>
                 </CardContent>
               </Card>
-            </motion.div>
+            </ProjectCard>
           ))}
-        </div>
-      </div>
-    </section>
+        </ProjectsGrid>
+      </ProjectsContainer>
+    </ProjectsSection>
   );
 }

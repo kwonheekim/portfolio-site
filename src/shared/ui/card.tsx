@@ -1,84 +1,110 @@
 import * as React from "react";
+import styled from "@emotion/styled";
 
-import { cn } from "./utils";
+import { lightTheme } from "../../styles/emotion-theme";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card"
-      className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border",
-        className,
-      )}
-      {...props}
-    />
-  );
+const StyledCard = styled.div`
+  background-color: ${lightTheme.colors.card};
+  color: ${lightTheme.colors.cardForeground};
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: ${lightTheme.borderRadius.xl};
+  border: 1px solid ${lightTheme.colors.border};
+`;
+
+const StyledCardHeader = styled.div`
+  display: grid;
+  auto-rows: min-content;
+  grid-template-rows: auto auto;
+  align-items: start;
+  gap: 6px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+
+  &[data-slot="card-action"] {
+    grid-template-columns: 1fr auto;
+  }
+
+  & > [data-slot="card-action"] {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: start;
+    justify-self: end;
+  }
+
+  & + [data-slot="card-content"] {
+    padding-bottom: 24px;
+  }
+`;
+
+const StyledCardTitle = styled.h4`
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+`;
+
+const StyledCardDescription = styled.p`
+  color: ${lightTheme.colors.mutedForeground};
+  margin: 0;
+  padding: 0;
+`;
+
+const StyledCardAction = styled.div`
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: start;
+  justify-self: end;
+`;
+
+const StyledCardContent = styled.div`
+  padding-left: 24px;
+  padding-right: 24px;
+
+  &:last-child {
+    padding-bottom: 24px;
+  }
+`;
+
+const StyledCardFooter = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 24px;
+
+  & > [data-slot="card-content"] {
+    padding-top: 24px;
+  }
+`;
+
+function Card({ ...props }: React.ComponentProps<"div">) {
+  return <StyledCard data-slot="card" {...props} />;
 }
 
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-header"
-      className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 pt-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
-        className,
-      )}
-      {...props}
-    />
-  );
+function CardHeader({ ...props }: React.ComponentProps<"div">) {
+  return <StyledCardHeader data-slot="card-header" {...props} />;
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <h4
-      data-slot="card-title"
-      className={cn("leading-none", className)}
-      {...props}
-    />
-  );
+function CardTitle({ ...props }: React.ComponentProps<"div">) {
+  return <StyledCardTitle data-slot="card-title" {...props} />;
 }
 
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <p
-      data-slot="card-description"
-      className={cn("text-muted-foreground", className)}
-      {...props}
-    />
-  );
+function CardDescription({ ...props }: React.ComponentProps<"div">) {
+  return <StyledCardDescription data-slot="card-description" {...props} />;
 }
 
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-action"
-      className={cn(
-        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-        className,
-      )}
-      {...props}
-    />
-  );
+function CardAction({ ...props }: React.ComponentProps<"div">) {
+  return <StyledCardAction data-slot="card-action" {...props} />;
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-content"
-      className={cn("px-6 [&:last-child]:pb-6", className)}
-      {...props}
-    />
-  );
+function CardContent({ ...props }: React.ComponentProps<"div">) {
+  return <StyledCardContent data-slot="card-content" {...props} />;
 }
 
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-footer"
-      className={cn("flex items-center px-6 pb-6 [.border-t]:pt-6", className)}
-      {...props}
-    />
-  );
+function CardFooter({ ...props }: React.ComponentProps<"div">) {
+  return <StyledCardFooter data-slot="card-footer" {...props} />;
 }
 
 export {

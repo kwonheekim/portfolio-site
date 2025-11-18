@@ -1,6 +1,75 @@
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
+import styled from "@emotion/styled";
 import { scrollToSection, createThrottledScrollListener } from "@/shared/utils";
+import { lightTheme } from "@/styles/emotion-theme";
+
+const StyledHeader = styled(motion.header)<{ scrolled: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+  background-color: ${(props) =>
+    props.scrolled ? "rgba(255, 255, 255, 0.8)" : "transparent"};
+  backdrop-filter: ${(props) => (props.scrolled ? "blur(12px)" : "none")};
+  box-shadow: ${(props) =>
+    props.scrolled ? "0 1px 3px 0 rgba(0, 0, 0, 0.1)" : "none"};
+`;
+
+const HeaderNav = styled.nav`
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: 100%;
+  max-width: 1280px;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const LogoWrapper = styled(motion.div)`
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: ${lightTheme.colors.foreground};
+`;
+
+const NavItems = styled.div`
+  display: flex;
+  gap: 32px;
+`;
+
+const NavButton = styled(motion.button)`
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: ${lightTheme.colors.gray700};
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 8px;
+  border-radius: 4px;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: ${lightTheme.colors.gray900};
+  }
+
+  &:focus-visible {
+    outline: none;
+    ring: 2px;
+    ring-color: ${lightTheme.colors.gray400};
+    ring-offset: 2px;
+    border-radius: 4px;
+  }
+`;
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -14,39 +83,35 @@ export function Header() {
   }, []);
 
   return (
-    <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"
-      }`}
+    <StyledHeader
+      scrolled={scrolled}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <nav className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <motion.div
-            className="cursor-pointer"
+      <HeaderNav>
+        <HeaderContainer>
+          <LogoWrapper
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection("hero")}
           >
             Portfolio
-          </motion.div>
+          </LogoWrapper>
 
-          <div className="flex gap-8">
+          <NavItems>
             {["About", "Skills", "Projects", "Contact"].map((item) => (
-              <motion.button
+              <NavButton
                 key={item}
                 onClick={() => scrollToSection(item.toLowerCase())}
-                className="text-gray-700 hover:text-gray-900 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-400 rounded px-2 py-1"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 {item}
-              </motion.button>
+              </NavButton>
             ))}
-          </div>
-        </div>
-      </nav>
-    </motion.header>
+          </NavItems>
+        </HeaderContainer>
+      </HeaderNav>
+    </StyledHeader>
   );
 }
