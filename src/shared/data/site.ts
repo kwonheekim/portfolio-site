@@ -24,7 +24,7 @@ export const heroCopy = {
 
 export const aboutCopy = {
   title: "About Me",
-  intro: "안녕하세요! 저는 인터랙티브하고 사용자 친화적인 웹 인터페이스를 만드는 것에 열정적인 프론트엔드 개발자입니다. React, TypeScript, 그리고 최신 CSS 기술을 활용하여 성능 최적화된 웹 애플리케이션을 구축하고 있습니다.",
+  intro: "빠르게 변화하는 AI 시대에 기술과 함께 성장하는 프론트엔드 개발자 김권희입니다. \"AI가 개발자를 대체한다\"라는 말보단, AI를 깊이 이해하고 잘 다루는 개발자의 가치가 더 커지는 시기라고 믿습니다. 실제 업무 전반에 AI 도구를 적극 활용해 개발 효율과 결과물의 완성도를 높이고 있으며, 앞으로는 팀과 서비스의 생산성을 극대화할 수 있는 역량을 갖춘 개발자로 성장하고자 합니다.",
   education: {
     formal: [
       {
@@ -42,28 +42,14 @@ export const aboutCopy = {
     ],
     certification: [
       {
-        period: "2016.04 - 2016.10",
-        title: "Java 기반 사물인터넷 프로그램 과정",
-        organization: "솔데스크",
-        description: "웹프로그래밍 과정, Android개발, 응용 SW 개발 수료",
+        period: "2016.05",
+        title: "정보처리기사",
+        organization: "한국산업인력공단",
       },
       {
-        period: "2016.06 - 2016.07",
-        title: "Oracle 11g",
-        organization: "솔데스크",
-        description: "Oracle OCP-DBA 전문가 과정 수료",
-      },
-      {
-        period: "2015.01 - 2015.02",
-        title: "기업서보보안 Linux",
-        organization: "솔데스크",
-        description: "리눅스 서버 운영 및 관리 과정 수료",
-      },
-      {
-        period: "2014.09 - 2014.10",
-        title: "CCNA",
-        organization: "솔데스크",
-        description: "네트워크 구축 목적 및 필요한 프로토콜과 전송 장비들을 파악하며 네트워크망을 구축할 수 있는 과정 수료",
+        period: "2015.09",
+        title: "OCJP (Oracle)",
+        organization: "Oracle",
       },
     ],
   },

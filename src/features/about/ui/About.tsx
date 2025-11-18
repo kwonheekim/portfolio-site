@@ -37,6 +37,7 @@ const AboutTitle = styled.h2`
 const AboutGrid = styled.div`
   display: grid;
   gap: 48px;
+  align-items: flex-end;
 
   @media (min-width: ${lightTheme.breakpoints.md}) {
     grid-template-columns: 1fr 1fr;
@@ -52,7 +53,11 @@ const LeftColumn = styled.div`
 const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 48px;
+
+  @media (min-width: ${lightTheme.breakpoints.md}) {
+    gap: 56px;
+  }
 `;
 
 const ProfileImageWrapper = styled(motion.div)`
@@ -62,24 +67,31 @@ const ProfileImageWrapper = styled(motion.div)`
 
 const ProfileImage = styled.img`
   aspect-ratio: 1;
-  width: 100%;
+  width: 50%;
   object-fit: cover;
   border-radius: 1rem;
+
+  @media (min-width: ${lightTheme.breakpoints.md}) {
+    width: 65%;
+  }
 `;
 
 const IntroSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 `;
 
 const SectionLabel = styled.h3`
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: ${lightTheme.colors.primary};
   margin: 0;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid ${lightTheme.colors.primary};
 `;
 
 const IntroText = styled.p`
@@ -112,6 +124,10 @@ const SkillTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    gap: 6px;
+  }
 `;
 
 const SkillTag = styled.span`
@@ -122,6 +138,12 @@ const SkillTag = styled.span`
   border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 500;
+  white-space: nowrap;
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    padding: 3px 10px;
+    font-size: 0.8125rem;
+  }
 `;
 
 const EducationSection = styled(motion.div)`
@@ -133,59 +155,80 @@ const EducationSection = styled(motion.div)`
 const EducationCategory = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+
+  &:nth-child(2) {
+    padding-top: 24px;
+    border-top: 1px solid ${lightTheme.colors.gray200};
+  }
 `;
 
 const CategoryTitle = styled.h4`
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   color: ${lightTheme.colors.primary};
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid ${lightTheme.colors.primary};
 `;
 
 const EducationItem = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-bottom: 12px;
+  gap: 8px;
+  padding-bottom: 16px;
   border-bottom: 1px solid ${lightTheme.colors.gray200};
 
   &:last-child {
     border-bottom: none;
     padding-bottom: 0;
   }
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    gap: 6px;
+    padding-bottom: 12px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${lightTheme.colors.primary};
+    outline-offset: 4px;
+  }
 `;
 
 const EducationPeriod = styled.p`
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: ${lightTheme.colors.gray600};
   margin: 0;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
 `;
 
 const EducationTitle = styled.p`
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: ${lightTheme.colors.foreground};
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
+  margin-bottom: 4px;
 `;
 
 const EducationOrganization = styled.p`
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: ${lightTheme.colors.gray600};
   margin: 0;
+  font-weight: 400;
 `;
 
-const EducationDescription = styled.p`
-  font-size: 0.85rem;
-  color: ${lightTheme.colors.gray700};
-  margin: 0;
-  line-height: 1.4;
-`;
+// const EducationDescription = styled.p`
+//   font-size: 0.875rem;
+//   color: ${lightTheme.colors.gray700};
+//   margin: 0;
+//   line-height: 1.5;
+// `;
 
 export function About() {
   const ref = useRef(null);
@@ -208,7 +251,7 @@ export function About() {
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <ProfileImage src={profileImage} alt="프로필 이미지" />
+                <ProfileImage src={profileImage} alt="Kim Kwon Hee - Frontend Developer" />
               </ProfileImageWrapper>
 
               <SkillsSection
@@ -236,7 +279,7 @@ export function About() {
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <SectionLabel>소개</SectionLabel>
+                <SectionLabel>간단한 소개</SectionLabel>
                 <IntroText>{aboutCopy.intro}</IntroText>
               </IntroSection>
 
@@ -256,13 +299,12 @@ export function About() {
                 </EducationCategory>
 
                 <EducationCategory>
-                  <CategoryTitle>자격증 및 교육</CategoryTitle>
+                  <CategoryTitle>자격증</CategoryTitle>
                   {aboutCopy.education.certification.map((cert, index) => (
                     <EducationItem key={index}>
                       <EducationPeriod>{cert.period}</EducationPeriod>
                       <EducationTitle>{cert.title}</EducationTitle>
                       <EducationOrganization>주관: {cert.organization}</EducationOrganization>
-                      <EducationDescription>{cert.description}</EducationDescription>
                     </EducationItem>
                   ))}
                 </EducationCategory>

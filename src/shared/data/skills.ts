@@ -20,4 +20,8 @@ export const skillsData: SkillGroup[] = [
     category: "Tools",
     items: ["Notion", "Slack", "GitHub", "VSC", "Figma", "Zeplin", "Adobe XD"],
   },
+  {
+    category: "AI 개발",
+    items: ["GitHub Copilot", "Cursor", "Claude Code", "LangChain", "RAG", "LLM"],
+  },
 ];
