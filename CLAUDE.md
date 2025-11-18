@@ -5,14 +5,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Quick Start Commands
 
 ```bash
-# Install dependencies (use pnpm for better performance)
-pnpm install
+# Install dependencies (use yarn)
+yarn install
 
 # Start development server
-pnpm run dev
+yarn dev
 
 # Build for production
-pnpm run build
+yarn build
 ```
 
 The development server runs on `http://localhost:3000` with hot module reloading enabled.
@@ -168,11 +168,11 @@ All UI components are in `components/ui/` and use Tailwind + CVA for variants.
 
 ```bash
 # Development
-pnpm run dev           # Hot reload on save
+yarn dev           # Hot reload on save
 
 # Production
-pnpm run build         # Output to /build directory
-pnpm run preview       # Preview build locally (requires vite preview)
+yarn build         # Output to /build directory
+yarn preview       # Preview build locally (requires vite preview)
 ```
 
 Built files are optimized and ready for static hosting (Vercel, Netlify, GitHub Pages).
