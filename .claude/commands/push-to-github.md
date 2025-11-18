@@ -1,479 +1,88 @@
-# Push to GitHub - 커스텀 커밋 메시지로 푸시
+# Push to GitHub - 자동 커밋 및 푸시
 
-변경된 코드를 직접 입력한 커밋 메시지로 커밋하고 GitHub에 푸시합니다.
-**사용자가 원하는 커밋 메시지로 git add, git commit, git push를 한 번에 처리**하는 스마트 커맨드입니다.
-
----
-
-## 🤖 **자동 실행 프롬프트**
-
-```
-git 상태를 확인하고, 사용자의 커밋 메시지로 변경된 파일들을 커밋 및 GitHub에 푸시합니다.
-
-다음 단계를 자동으로 수행하세요:
-
-1. git status를 실행하여 변경사항 확인
-2. 변경사항이 있으면 사용자에게 커밋 메시지 입력 요청
-   - 입력 형식 예시: "feat: 새로운 기능 추가"
-   - 사용자가 입력한 메시지를 그대로 사용
-3. git add -A를 실행
-4. 사용자가 입력한 커밋 메시지로 git commit -m "..." 실행
-5. git push origin main 으로 GitHub에 푸시
-6. 결과를 사용자에게 보고
-
-변경사항이 없으면 "No changes to commit" 메시지 출력
-```
+변경된 코드를 자동으로 감지하고, 사용자의 커밋 메시지로 커밋하고 GitHub에 푸시합니다.
 
 ---
 
-## 🚀 **실행 흐름**
+## 🤖 **실행 절차 (순서대로 실행하세요)**
 
-```
-/push-to-github
-    ↓
-[1️⃣ 변경사항 감지]
-    ↓
-git status 확인
-    ↓
-[2️⃣ 사용자 입력]
-    ↓
-사용자에게 커밋 메시지 입력 요청
-    ↓
-[3️⃣ 변경사항 스테이징]
-    ↓
-git add -A (모든 변경사항 추가)
-    ↓
-[4️⃣ 커밋 실행]
-    ↓
-git commit -m "사용자가 입력한 메시지"
-    ↓
-[5️⃣ GitHub에 푸시]
-    ↓
-git push origin main
-    ↓
-✅ 푸시 완료 및 결과 보고
-```
-
----
-
-## 💡 **기본 사용법**
-
-### 명령어 실행
-
+### Step 1: 현재 Git 상태 확인
 ```bash
-/push-to-github
+git status --porcelain
 ```
 
-VS Code Command Palette에서:
-- `Cmd+Shift+P` (Mac) 또는 `Ctrl+Shift+P` (Windows)
-- "push-to-github" 검색
-- Enter 클릭
+**판단:**
+- 변경사항이 없으면: "No changes to commit" 메시지 출력 후 중단
+- 변경사항이 있으면: Step 2로 진행
 
----
+### Step 2: 사용자에게 커밋 메시지 입력 요청
+AskUserQuestion 도구를 사용하여 사용자에게 다음을 물어보세요:
 
-## 📋 **커밋 메시지 입력**
-
-이 커맨드를 실행하면 사용자에게 **커밋 메시지를 직접 입력받습니다**:
-
-### 커밋 메시지 형식 (권장)
-
+**질문:**
 ```
-[타입]: 한글 제목
-
-- 변경사항 1
-- 변경사항 2
-- 변경사항 3
+"커밋 메시지를 입력하세요"
+Header: "Git Commit"
 ```
 
-### 타입 종류
+**설명:** Conventional Commits 형식 권장 (예: "feat: 새 기능 추가", "fix: 버그 수정")
 
-| 타입 | 설명 | 예시 |
-|------|------|------|
-| **feat** | 새로운 기능 | `feat: 다크 모드 기능 추가` |
-| **fix** | 버그 수정 | `fix: Hero 섹션 애니메이션 오류 해결` |
-| **refactor** | 코드 리팩토링 | `refactor: FSD 아키텍처로 마이그레이션` |
-| **style** | 스타일 변경 | `style: Tailwind 클래스 정렬` |
-| **docs** | 문서 업데이트 | `docs: README 업데이트` |
-| **chore** | 기타 작업 | `chore: 의존성 업데이트` |
+사용자 입력을 `commitMessage` 변수에 저장
 
-### 사용 예시
-
-```bash
-# 새 기능 추가 후
-/push-to-github
-> 커밋 메시지를 입력하세요:
-feat: 포트폴리오 필터링 기능 추가
-
-# 버그 수정 후
-/push-to-github
-> 커밋 메시지를 입력하세요:
-fix: Contact 폼 제출 오류 해결
-
-# 리팩토링 후
-/push-to-github
-> 커밋 메시지를 입력하세요:
-refactor: 컴포넌트 구조 최적화
-```
-
----
-
-## 🔄 **실행 절차**
-
-### 단계 1: 변경사항 확인
-
-```bash
-git status
-```
-
-다음과 같은 변경사항을 자동으로 감지합니다:
-- ✏️ 수정된 파일 (Modified)
-- ➕ 새로운 파일 (Untracked)
-- 🗑️ 삭제된 파일 (Deleted)
-- 📝 renamed 파일
-
-### 단계 2: 사용자 입력
-
-커밋 메시지를 사용자에게 입력받습니다.
-
-```bash
-커밋 메시지를 입력하세요:
-```
-
-원하는 형식으로 커밋 메시지를 입력합니다 (예: `feat: 새 기능 추가`).
-
-### 단계 3: 변경사항 추가
-
+### Step 3: 모든 변경사항 스테이징
 ```bash
 git add -A
 ```
 
-모든 변경사항을 staging area에 추가합니다.
-
-### 단계 4: 커밋
-
+### Step 4: 커밋 생성
 ```bash
-git commit -m "사용자가 입력한 메시지"
+git commit -m "[사용자 입력 메시지]"
 ```
 
-사용자가 입력한 커밋 메시지로 커밋합니다.
+출력에서 커밋 해시 추출 (예: `[main a1b2c3d]` 형식에서 `a1b2c3d`)
 
-### 단계 5: 푸시
-
+### Step 5: GitHub에 푸시
 ```bash
 git push origin main
 ```
 
-GitHub의 main 브랜치에 푸시합니다.
+### Step 6: 결과 보고
 
----
-
-## 📊 **실행 흐름 다이어그램**
-
+**성공한 경우:**
 ```
-┌──────────────────────────────┐
-│  /push-to-github 명령어 실행   │
-└────────────┬─────────────────┘
-             │
-        ┌────▼─────────┐
-        │ git status   │
-        │변경사항 확인  │
-        └────┬─────────┘
-             │
-        변경사항 있음?
-        ├─ YES → ✅ 계속
-        └─ NO  → ❌ 변경사항 없음 (종료)
-             │
-        ┌────▼────────────────────────────┐
-        │ 사용자에게 커밋 메시지 입력 요청  │
-        │ "커밋 메시지를 입력하세요: "    │
-        └────┬────────────────────────────┘
-             │
-        메시지 입력됨?
-        ├─ YES → ✅ 계속
-        └─ NO  → ❌ 취소 (종료)
-             │
-        ┌────▼──────────────┐
-        │ git add -A        │
-        │모든 변경사항 추가  │
-        └────┬──────────────┘
-             │
-        ┌────▼──────────────────┐
-        │ git commit -m "..."   │
-        │ 입력받은 메시지로 커밋│
-        └────┬──────────────────┘
-             │
-        커밋 성공?
-        ├─ YES → ✅ 계속
-        └─ NO  → ❌ 오류 보고 (종료)
-             │
-        ┌────▼─────────────────┐
-        │ git push origin main  │
-        │ GitHub에 푸시         │
-        └────┬─────────────────┘
-             │
-        푸시 성공?
-        ├─ YES → ✅ 완료
-        │         - 커밋 해시 표시
-        │         - GitHub 링크 제시
-        │         - 성공 메시지 출력
-        └─ NO  → ❌ 오류 보고
-                  - 오류 메시지
-                  - 원인 분석
-                  - 해결 방법 제시
+✅ 푸시 성공!
+🔗 GitHub 커밋: https://github.com/kwonheekim/portfolio-site/commit/{커밋해시}
+✨ 완료! GitHub에서 확인할 수 있습니다.
+```
+
+**실패한 경우:**
+```
+❌ 푸시 실패
+오류: [오류 메시지]
+→ 해결 방법 제시
 ```
 
 ---
 
-## ⚙️ **주요 기능**
-
-### ✅ 자동 변경사항 감지
-
-```bash
-# 다음을 자동으로 감지합니다:
-git add -A
-├─ 수정된 파일 추가
-├─ 새로운 파일 추가
-├─ 삭제된 파일 추가
-└─ renamed 파일 추가
-```
-
-### ✅ 사용자 정의 커밋 메시지
-
-사용자가 원하는 커밋 메시지를 직접 입력받습니다:
-
-```bash
-# 예시 1: 기능 추가
-커밋 메시지를 입력하세요: feat: 다크 모드 토글 버튼 추가
-
-# 예시 2: 버그 수정
-커밋 메시지를 입력하세요: fix: Header 스크롤 감지 오류 해결
-
-# 예시 3: 리팩토링
-커밋 메시지를 입력하세요: refactor: FSD 아키텍처로 마이그레이션
-```
-
-### ✅ 원격 저장소 푸시
-
-```bash
-git push origin main
-```
-
-현재 브랜치를 GitHub의 main 브랜치에 자동으로 푸시합니다.
-
-### ✅ 오류 처리
-
-푸시 실패 시 다음을 자동으로 처리합니다:
-
-```bash
-# 시나리오 1: 원격 저장소가 최신 상태가 아닌 경우
-❌ rejected - Your branch is behind 'origin/main'
-✅ 자동 해결: git pull → git push
-
-# 시나리오 2: Merge conflict 있는 경우
-❌ conflict detected
-✅ 알림: 수동 resolve 필요
-
-# 시나리오 3: 권한 문제
-❌ Permission denied
-✅ 알림: SSH 키 확인 필요
-```
-
----
-
-## 🎯 **사용 예시**
-
-### 예시 1️⃣: 새 기능 추가 후 푸시
-
-```bash
-# 1. 새 기능 개발 (src/features/hero/ui/Hero.tsx 수정)
-# ... 코드 작성 ...
-
-# 2. /push-to-github 실행
-/push-to-github
-
-# 실행 과정:
-# ✓ git status (변경사항 확인)
-# > 커밋 메시지를 입력하세요:
-# feat: Hero 섹션 애니메이션 개선
-# ✓ git add -A (모든 파일 추가)
-# ✓ git commit -m "feat: Hero 섹션 애니메이션 개선"
-# ✓ git push origin main (GitHub에 푸시)
-
-# 결과:
-# ✅ 푸시 완료
-# GitHub URL: https://github.com/kwonheekim/portfolio-site/commits/main
-```
-
-### 예시 2️⃣: 버그 수정 후 푸시
-
-```bash
-# 1. 버그 수정 (src/features/contact/ui/Contact.tsx 수정)
-# ... 코드 수정 ...
-
-# 2. /push-to-github 실행
-/push-to-github
-
-# 실행 과정:
-# ✓ git status (변경사항 확인)
-# > 커밋 메시지를 입력하세요:
-# fix: Contact 폼 검증 오류 해결
-# ✓ git add -A (모든 파일 추가)
-# ✓ git commit -m "fix: Contact 폼 검증 오류 해결"
-# ✓ git push origin main (GitHub에 푸시)
-
-# 결과:
-# ✅ 푸시 완료
-```
-
-### 예시 3️⃣: 여러 파일 수정 후 푸시
-
-```bash
-# 1. 여러 파일 수정
-# - src/features/projects/ui/Projects.tsx (수정)
-# - src/shared/ui/card.tsx (수정)
-# - src/entities/project/model/types.ts (새로 추가)
-
-# 2. /push-to-github 실행
-/push-to-github
-
-# 실행 과정:
-# ✓ git status (변경사항 확인)
-#   - 수정: Projects.tsx
-#   - 수정: card.tsx
-#   - 새로 추가: types.ts
-# > 커밋 메시지를 입력하세요:
-# refactor: 프로젝트 카드 컴포넌트 개선
-# ✓ git add -A (모든 파일 추가)
-# ✓ git commit -m "refactor: 프로젝트 카드 컴포넌트 개선"
-# ✓ git push origin main (GitHub에 푸시)
-
-# 결과:
-# ✅ 푸시 완료 (3개 파일 포함)
-```
-
----
-
-## 🔐 **안전 기능**
-
-### 변경사항 검증
-
-푸시 전에 다음을 자동으로 확인합니다:
-
-```bash
-✓ 커밋 메시지 유효성 검사
-✓ 파일 변경 감지
-✓ 브랜치 상태 확인
-✓ 원격 저장소 연결 확인
-```
-
-### 오류 방지
-
-```bash
-# 변경사항 없음
-❌ "No changes to commit" → 커밋 중단
-
-# 빈 커밋 메시지
-❌ "Empty commit message" → 재시도 요청
-
-# 네트워크 연결 오류
-❌ "Connection refused" → 재시도 옵션 제시
-```
-
----
-
-## 📱 **웹에서 확인**
-
-푸시 완료 후 GitHub에서 확인할 수 있습니다:
-
-```
-https://github.com/kwonheekim/portfolio-site
-├─ Commits 탭 → 최신 커밋 확인
-├─ Pull Requests → 릴리스 준비
-└─ Actions → CI/CD 상태 확인
-```
-
----
-
-## 🆚 **기존 방식 vs 이 커맨드**
-
-### 기존 방식 (수동)
-```bash
-git status                           # 변경사항 확인
-git add -A                           # 파일 추가
-git commit -m "커밋 메시지"          # 직접 메시지 작성해서 커밋
-git push origin main                # 푸시
-# 4개의 명령어 필요
-```
-
-### 이 커맨드 (간편)
-```bash
-/push-to-github
-# 1개의 명령어로 모든 것 자동 처리
-# 중간에 커밋 메시지 입력만 요청
-```
-
-**차이점:** 스마트 자동 생성 대신 **사용자가 원하는 메시지를 직접 입력할 수 있음**
-
----
-
-## 💡 **팁**
-
-### 커밋 메시지 관례
-
-프로젝트의 일관성을 위해 다음을 따릅니다:
-
-```bash
-# ✅ Good
-feat: 포트폴리오 필터링 기능 추가
-
-# ✅ Good
-fix: Hero 섹션 애니메이션 오류 해결
-
-# ❌ Bad
-just fixed stuff
-
-# ❌ Bad
-more changes
-```
-
-### 자주 푸시하기
-
-```bash
-# 작은 기능 단위로 자주 커밋 & 푸시
-# → 히스토리 관리 용이
-# → 문제 발생 시 롤백 간단
-# → 팀 협업 효율 증가
-```
-
----
-
-## 📚 **관련 명령어**
-
-```bash
-# 프로젝트 시작 (빌드 + 검증 + 실행)
-/project-start
-
-# FSD 아키텍처 분석
-/fsd-analyze
-
-# GitHub에 푸시 (이 커맨드)
-/push-to-github
-```
+## 📝 **커밋 메시지 예시**
+
+| 타입 | 예시 |
+|------|------|
+| **feat** | `feat: Hero 섹션 애니메이션 개선` |
+| **fix** | `fix: Contact 폼 검증 오류 해결` |
+| **refactor** | `refactor: Emotion CSS-in-JS 전환` |
+| **style** | `style: 컴포넌트 스타일 정렬` |
+| **docs** | `docs: README 업데이트` |
+| **chore** | `chore: 의존성 업데이트` |
 
 ---
 
 ## ✨ **요약**
 
-**이 커맨드 하나로:**
-- ✅ 변경사항 자동 감지
-- ✅ 사용자 정의 커밋 메시지 입력
-- ✅ 모든 변경사항 자동 추가
-- ✅ GitHub에 자동 푸시
-- ✅ 오류 처리 및 피드백
+이 커맨드는:
+1. ✅ 변경사항 자동 감지
+2. ✅ 사용자에게 커밋 메시지 입력 요청
+3. ✅ 모든 변경사항 자동 스테이징
+4. ✅ GitHub에 자동 푸시
+5. ✅ 결과 보고
 
-**결과:** 명령어 한 번으로 완전한 git 워크플로우 완성! (메시지 입력만 포함)
-
----
-
-**이제 `/push-to-github` 커맨드로 쉽게 GitHub에 푸시할 수 있습니다!** 🚀
-(원하는 커밋 메시지를 직접 입력할 수 있습니다.)
+한 번의 명령어로 완전한 git 워크플로우 완성!
