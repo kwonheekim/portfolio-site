@@ -3,9 +3,9 @@
  */
 
 export const siteConfig = {
-  name: "Your Name",
+  name: "Kim Kwon Hee",
   description: "Frontend Developer & Creative Problem Solver",
-  author: "Your Name",
+  author: "Kim Kwon Hee",
   url: "https://yourportfolio.com",
   links: {
     github: "https://github.com/kwonheekim",

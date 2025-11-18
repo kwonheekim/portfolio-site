@@ -15,6 +15,7 @@ const ContactSection = styled.section`
   min-height: 100vh;
   display: flex;
   align-items: center;
+  background-color: #ffffff;
 `;
 
 const ContactContainer = styled.div`

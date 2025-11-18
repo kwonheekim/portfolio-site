@@ -5,13 +5,14 @@ import styled from "@emotion/styled";
 import { aboutCopy, skillsData } from "@/shared/data";
 import { lightTheme } from "@/styles/emotion-theme";
 import profileImage from "@/assets/images/profile_img.png";
+import { getAnimationConfig } from "@/shared/utils/animation";
 
 const AboutSection = styled.section`
   padding-top: 96px;
   padding-bottom: 96px;
   padding-left: 24px;
   padding-right: 24px;
-  background-color: ${lightTheme.colors.gray50};
+  background-color: #f5f5f7;
 `;
 
 const AboutContainer = styled.div`
@@ -82,6 +83,14 @@ const IntroSection = styled(motion.div)`
   gap: 16px;
 `;
 
+const NameAccent = styled.div`
+  width: 40px;
+  height: 3px;
+  background-color: ${lightTheme.colors.primary};
+  margin-bottom: 16px;
+  border-radius: 2px;
+`;
+
 const SectionLabel = styled.h3`
   font-size: 1.125rem;
   font-weight: 700;
@@ -139,6 +148,16 @@ const SkillTag = styled.span`
   font-size: 0.875rem;
   font-weight: 500;
   white-space: nowrap;
+  transition: all 0.2s ease;
+
+  &:focus-visible {
+    outline: 2px solid ${lightTheme.colors.primary};
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
   @media (max-width: ${lightTheme.breakpoints.sm}) {
     padding: 3px 10px;
@@ -249,7 +268,7 @@ export function About() {
               <ProfileImageWrapper
                 initial={{ opacity: 0, x: -50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={getAnimationConfig(0.6, 0.2)}
               >
                 <ProfileImage src={profileImage} alt="Kim Kwon Hee - Frontend Developer" />
               </ProfileImageWrapper>
@@ -257,7 +276,7 @@ export function About() {
               <SkillsSection
                 initial={{ opacity: 0, x: -50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={getAnimationConfig(0.6, 0.3)}
               >
                 <SectionLabel>보유 스킬</SectionLabel>
                 {skillsData.map((skillGroup) => (
@@ -277,8 +296,9 @@ export function About() {
               <IntroSection
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={getAnimationConfig(0.6, 0.2)}
               >
+                <NameAccent />
                 <SectionLabel>간단한 소개</SectionLabel>
                 <IntroText>{aboutCopy.intro}</IntroText>
               </IntroSection>
@@ -286,7 +306,7 @@ export function About() {
               <EducationSection
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={getAnimationConfig(0.6, 0.4)}
               >
                 <EducationCategory>
                   <CategoryTitle>학력</CategoryTitle>

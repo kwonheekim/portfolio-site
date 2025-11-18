@@ -36,10 +36,36 @@ const HeaderContainer = styled.div`
 `;
 
 const LogoWrapper = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
   cursor: pointer;
-  font-weight: 600;
+`;
+
+const LogoKorean = styled.span`
   font-size: 1.125rem;
+  font-weight: 700;
   color: ${lightTheme.colors.foreground};
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    font-size: 1rem;
+  }
+`;
+
+const LogoEnglish = styled.span`
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: ${lightTheme.colors.gray600};
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    font-size: 0.65rem;
+  }
 `;
 
 const NavItems = styled.div`
@@ -95,7 +121,8 @@ export function Header() {
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection("hero")}
           >
-            Portfolio
+            <LogoKorean>김권희</LogoKorean>
+            <LogoEnglish>Kim Kwon Hee</LogoEnglish>
           </LogoWrapper>
 
           <NavItems>

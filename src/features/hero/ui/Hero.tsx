@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Button } from "@/shared/ui";
 import { heroCopy, siteConfig } from "@/shared/data";
 import { lightTheme } from "@/styles/emotion-theme";
+import { getAnimationConfig, animationDurations } from "@/shared/utils/animation";
 
 const HeroSection = styled.section`
   min-height: 100vh;
@@ -21,6 +22,28 @@ const HeroContainer = styled.div`
   text-align: center;
   width: 100%;
   max-width: 1280px;
+`;
+
+const HeroGreeting = styled(motion.p)`
+  font-size: 1rem;
+  font-weight: 500;
+  color: ${lightTheme.colors.primary};
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  margin-top: 0;
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    font-size: 0.875rem;
+  }
+`;
+
+const HeroNameHighlight = styled.span`
+  font-weight: 700;
+  background: linear-gradient(135deg, ${lightTheme.colors.primary}, ${lightTheme.colors.gray700});
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 `;
 
 const HeroTitle = styled(motion.h1)`
@@ -61,7 +84,36 @@ const HeroButtonGroup = styled(motion.div)`
 
     button {
       width: 100%;
+      min-height: 48px;
     }
+  }
+`;
+
+const PrimaryButton = styled(Button)`
+  min-height: 48px;
+  min-width: 48px;
+
+  &:focus-visible {
+    outline: 2px solid ${lightTheme.colors.primary};
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+const SecondaryButton = styled(Button)`
+  min-height: 48px;
+  min-width: 48px;
+
+  &:focus-visible {
+    outline: 2px solid ${lightTheme.colors.primary};
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `;
 
@@ -81,6 +133,14 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
+          <HeroGreeting
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0 }}
+          >
+            Hi, I'm <HeroNameHighlight>Kim Kwon Hee</HeroNameHighlight>
+          </HeroGreeting>
+
           <HeroTitle
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -100,38 +160,41 @@ export function Hero() {
           <HeroButtonGroup
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={getAnimationConfig(0.8, 0.6)}
           >
-            <Button
+            <PrimaryButton
               size="lg"
-              variant="outline"
+              variant="default"
               onClick={() => window.open(siteConfig.links.github, "_blank")}
+              aria-label="View GitHub profile"
             >
               <Github size={20} />
               GitHub
-            </Button>
-            <Button
+            </PrimaryButton>
+            <SecondaryButton
               size="lg"
               variant="outline"
               onClick={() => window.open(siteConfig.links.linkedin, "_blank")}
+              aria-label="View LinkedIn profile"
             >
               <Linkedin size={20} />
               LinkedIn
-            </Button>
-            <Button
+            </SecondaryButton>
+            <SecondaryButton
               size="lg"
               variant="outline"
               onClick={() => window.location.href = `mailto:${siteConfig.links.email}`}
+              aria-label="Send email"
             >
               <Mail size={20} />
               Email
-            </Button>
+            </SecondaryButton>
           </HeroButtonGroup>
         </motion.div>
 
         <HeroArrowContainer
           animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          transition={getAnimationConfig(2, 0, 'easeInOut')}
         >
           <ArrowDown
             style={{
@@ -139,6 +202,7 @@ export function Hero() {
               height: "24px",
               color: lightTheme.colors.gray400,
             }}
+            aria-hidden="true"
           />
         </HeroArrowContainer>
       </HeroContainer>
