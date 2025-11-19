@@ -119,50 +119,25 @@ const SkillsSection = styled(motion.div)`
 const SkillCategory = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 `;
 
 const CategoryName = styled.h4`
   font-size: 0.875rem;
-  font-weight: 600;
-  color: ${lightTheme.colors.foreground};
-  margin: 0;
-`;
-
-const SkillTags = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-
-  @media (max-width: ${lightTheme.breakpoints.sm}) {
-    gap: 6px;
-  }
-`;
-
-const SkillTag = styled.span`
-  display: inline-block;
-  padding: 4px 12px;
-  background-color: ${lightTheme.colors.accentBlue}20;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: ${lightTheme.colors.accentBlue};
-  border-radius: 4px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: all 0.2s ease;
+  margin: 0;
+  margin-bottom: 4px;
+`;
 
-  &:focus-visible {
-    outline: 2px solid ${lightTheme.colors.accentBlue};
-    outline-offset: 2px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  @media (max-width: ${lightTheme.breakpoints.sm}) {
-    padding: 3px 10px;
-    font-size: 0.8125rem;
-  }
+const SkillText = styled.p`
+  font-size: 0.9375rem;
+  color: ${lightTheme.colors.gray700};
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 400;
 `;
 
 const EducationSection = styled(motion.div)`
@@ -282,11 +257,7 @@ export function About() {
                 {skillsData.map((skillGroup) => (
                   <SkillCategory key={skillGroup.category}>
                     <CategoryName>{skillGroup.category}</CategoryName>
-                    <SkillTags>
-                      {skillGroup.items.map((skill) => (
-                        <SkillTag key={skill}>{skill}</SkillTag>
-                      ))}
-                    </SkillTags>
+                    <SkillText>{skillGroup.items.join(", ")}</SkillText>
                   </SkillCategory>
                 ))}
               </SkillsSection>
