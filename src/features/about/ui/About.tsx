@@ -96,11 +96,11 @@ const SectionLabel = styled.h3`
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: ${lightTheme.colors.accentBlue};
+  color: ${lightTheme.colors.foreground};
   margin: 0;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 2px solid ${lightTheme.colors.accentBlue};
+  border-bottom: 2px solid ${lightTheme.colors.gray200};
 `;
 
 const IntroText = styled.p`
@@ -160,13 +160,13 @@ const EducationCategory = styled.div`
 const CategoryTitle = styled.h4`
   font-size: 1rem;
   font-weight: 700;
-  color: ${lightTheme.colors.accentBlue};
+  color: ${lightTheme.colors.foreground};
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 2px solid ${lightTheme.colors.accentBlue};
+  border-bottom: 2px solid ${lightTheme.colors.gray200};
 `;
 
 const EducationItem = styled.div`
