@@ -86,7 +86,7 @@ const IntroSection = styled(motion.div)`
 const NameAccent = styled.div`
   width: 40px;
   height: 3px;
-  background-color: ${lightTheme.colors.primary};
+  background-color: ${lightTheme.colors.accentBlue};
   margin-bottom: 16px;
   border-radius: 2px;
 `;
@@ -96,11 +96,11 @@ const SectionLabel = styled.h3`
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: ${lightTheme.colors.primary};
+  color: ${lightTheme.colors.accentBlue};
   margin: 0;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 2px solid ${lightTheme.colors.primary};
+  border-bottom: 2px solid ${lightTheme.colors.accentBlue};
 `;
 
 const IntroText = styled.p`
@@ -142,8 +142,8 @@ const SkillTags = styled.div`
 const SkillTag = styled.span`
   display: inline-block;
   padding: 4px 12px;
-  background-color: ${lightTheme.colors.primary}20;
-  color: ${lightTheme.colors.primary};
+  background-color: ${lightTheme.colors.accentBlue}20;
+  color: ${lightTheme.colors.accentBlue};
   border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 500;
@@ -151,7 +151,7 @@ const SkillTag = styled.span`
   transition: all 0.2s ease;
 
   &:focus-visible {
-    outline: 2px solid ${lightTheme.colors.primary};
+    outline: 2px solid ${lightTheme.colors.accentBlue};
     outline-offset: 2px;
   }
 
@@ -185,13 +185,13 @@ const EducationCategory = styled.div`
 const CategoryTitle = styled.h4`
   font-size: 1rem;
   font-weight: 700;
-  color: ${lightTheme.colors.primary};
+  color: ${lightTheme.colors.accentBlue};
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 2px solid ${lightTheme.colors.primary};
+  border-bottom: 2px solid ${lightTheme.colors.accentBlue};
 `;
 
 const EducationItem = styled.div`
@@ -212,16 +212,16 @@ const EducationItem = styled.div`
   }
 
   &:focus-visible {
-    outline: 2px solid ${lightTheme.colors.primary};
+    outline: 2px solid ${lightTheme.colors.accentBlue};
     outline-offset: 4px;
   }
 `;
 
 const EducationPeriod = styled.p`
   font-size: 0.875rem;
-  color: ${lightTheme.colors.gray600};
+  color: ${lightTheme.colors.accentBlue};
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: 6px;
