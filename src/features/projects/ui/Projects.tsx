@@ -35,157 +35,136 @@ const ProjectsTitle = styled(motion.h2)`
   }
 `;
 
-const ProjectsGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+const ProjectsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+`;
 
-  @media (min-width: ${lightTheme.breakpoints.md}) {
-    grid-template-columns: repeat(2, 1fr);
+const ProjectItemWrapper = styled(motion.div)`
+  display: flex;
+  gap: 0;
+  position: relative;
+`;
+
+const TimelineMarker = styled.div`
+  width: 200px;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 8px;
+  flex-shrink: 0;
+
+  @media (max-width: ${lightTheme.breakpoints.md}) {
+    width: 100px;
+    padding-right: 20px;
   }
 
-  @media (min-width: ${lightTheme.breakpoints.lg}) {
-    grid-template-columns: repeat(3, 1fr);
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    width: auto;
+    padding-right: 12px;
+    padding-bottom: 8px;
   }
 `;
 
-const StyledCard = styled(Card)`
+const PeriodLabel = styled.div`
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: ${lightTheme.colors.accentBlue};
+  white-space: nowrap;
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    font-size: 0.8rem;
+  }
+`;
+
+const TimelineConnector = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-  border: 1px solid ${lightTheme.colors.border};
+  border-left: 2px solid #e5e7eb;
+  padding-left: 0;
+`;
+
+const ProjectItem = styled.div`
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
   transition: all 0.3s ease;
+  margin-bottom: 0;
+  border-left: 4px solid ${lightTheme.colors.accentBlue};
 
   &:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  @media (max-width: ${lightTheme.breakpoints.md}) {
+    padding: 24px;
+  }
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    padding: 20px;
+    border-left: 3px solid ${lightTheme.colors.accentBlue};
   }
 `;
 
-const CardHeaderStyled = styled(CardHeader)`
-  padding: 24px;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  color: white;
-  border-radius: 12px 12px 0 0;
-  transition: all 0.3s ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+const ProjectHeader = styled.div`
+  margin-bottom: 20px;
 `;
 
-const CardTitleStyled = styled(CardTitle)`
-  color: white;
-  font-size: 1.125rem;
-  margin-bottom: 8px;
+const ProjectTitle = styled.h3`
+  font-size: 1.3125rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: ${lightTheme.colors.foreground};
   line-height: 1.4;
+
+  @media (max-width: ${lightTheme.breakpoints.md}) {
+    font-size: 1.125rem;
+  }
 `;
 
-const CardMeta = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 0.875rem;
-`;
-
-const CardRole = styled.p`
-  color: rgba(255, 255, 255, 0.9);
+const ProjectRole = styled.p`
+  font-size: 0.9375rem;
+  color: #6b7280;
+  margin: 0;
   font-weight: 500;
+  line-height: 1.5;
 `;
 
-const CardPeriod = styled.p`
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.8125rem;
-`;
-
-const CardContentStyled = styled(CardContent)`
-  padding: 24px;
+const ProjectContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  flex: 1;
-  overflow-y: auto;
-
-  /* 스크롤바 스타일 */
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: ${lightTheme.colors.border};
-    border-radius: 3px;
-
-    &:hover {
-      background: ${lightTheme.colors.mutedForeground};
-    }
-  }
+  gap: 20px;
 `;
 
 const ProjectSection = styled.div<{ type: "background" | "solution" | "results" }>`
-  padding: 12px 0 12px 12px;
-  border-left: 3px solid
-    ${(props) => {
-      switch (props.type) {
-        case "background":
-          return "#ef4444"; // red-500
-        case "solution":
-          return "#10b981"; // green-500
-        case "results":
-          return "#3b82f6"; // blue-500
-        default:
-          return lightTheme.colors.border;
-      }
-    }};
-  background-color: ${(props) => {
-    switch (props.type) {
-      case "background":
-        return "rgba(239, 68, 68, 0.05)";
-      case "solution":
-        return "rgba(16, 185, 129, 0.05)";
-      case "results":
-        return "rgba(59, 130, 246, 0.05)";
-      default:
-        return "transparent";
-    }
-  }};
-
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation: none !important;
-      transition: none !important;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 const SectionLabel = styled.h4`
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: ${lightTheme.colors.foreground};
-  margin: 0 0 8px 0;
+  margin: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
-
-  &:before {
-    content: "${(props: any) => props.icon}";
-    font-size: 0.875rem;
-  }
+  gap: 8px;
 `;
 
 const SectionContent = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   color: ${lightTheme.colors.foreground};
-  line-height: 1.5;
+  line-height: 1.6;
 
   p {
-    margin: 0 0 8px 0;
+    margin: 0 0 6px 0;
 
     &:last-child {
       margin-bottom: 0;
@@ -199,21 +178,21 @@ const KeyPoints = styled.ul`
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 `;
 
 const KeyPoint = styled.li`
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: ${lightTheme.colors.foreground};
-  padding-left: 16px;
+  padding-left: 20px;
   position: relative;
-  line-height: 1.5;
+  line-height: 1.6;
 
   &:before {
     content: "•";
     position: absolute;
     left: 0;
-    color: #10b981;
+    color: ${lightTheme.colors.accentBlue};
     font-weight: bold;
   }
 `;
@@ -224,21 +203,21 @@ const MetricsList = styled.ul`
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 `;
 
 const MetricItem = styled.li`
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: ${lightTheme.colors.foreground};
-  padding-left: 16px;
+  padding-left: 20px;
   position: relative;
-  line-height: 1.5;
+  line-height: 1.6;
 
   &:before {
     content: "✓";
     position: absolute;
     left: 0;
-    color: #10b981;
+    color: ${lightTheme.colors.accentBlue};
     font-weight: bold;
   }
 `;
@@ -247,19 +226,18 @@ const TechStackContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 12px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%);
-  border-radius: 8px;
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  margin-top: auto;
+  padding-top: 12px;
+  margin-top: 4px;
+  border-top: 1px solid #e5e7eb;
 `;
 
 const TechBadge = styled(Badge)`
-  background: white;
-  border: 1px solid #3b82f6;
-  color: #3b82f6;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  color: #374151;
   font-weight: 500;
-  font-size: 0.8rem;
+  font-size: 0.8125rem;
+  padding: 4px 10px;
 `;
 
 export function Projects() {
@@ -277,74 +255,76 @@ export function Projects() {
           Projects
         </ProjectsTitle>
 
-        <ProjectsGrid>
+        <ProjectsList>
           {projectsData.map((project, index) => (
-            <motion.div
+            <ProjectItemWrapper
               key={project.id}
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={getAnimationConfig(0.5, index * animationDurations.quick)}
             >
-              <StyledCard>
-                <CardHeaderStyled>
-                  <CardTitleStyled>{project.title}</CardTitleStyled>
-                  <CardMeta>
-                    <CardRole>{project.role}</CardRole>
-                    <CardPeriod>{project.period}</CardPeriod>
-                  </CardMeta>
-                </CardHeaderStyled>
+              <TimelineMarker>
+                <PeriodLabel>{project.period}</PeriodLabel>
+              </TimelineMarker>
+              <TimelineConnector>
+                <ProjectItem>
+                  <ProjectHeader>
+                    <ProjectTitle>{project.title}</ProjectTitle>
+                    <ProjectRole>{project.role}</ProjectRole>
+                  </ProjectHeader>
 
-                <CardContentStyled>
-                  {/* Background Section */}
-                  <ProjectSection type="background">
-                    <SectionLabel icon="⚠️">Background / Issue</SectionLabel>
-                    <SectionContent>
-                      <p>{project.background.issue}</p>
-                      {project.background.challenge && <p>{project.background.challenge}</p>}
-                    </SectionContent>
-                  </ProjectSection>
+                  <ProjectContentWrapper>
+                    {/* Background Section */}
+                    <ProjectSection type="background">
+                      <SectionLabel>⚠️ Background</SectionLabel>
+                      <SectionContent>
+                        <p>{project.background.issue}</p>
+                        {project.background.challenge && <p>{project.background.challenge}</p>}
+                      </SectionContent>
+                    </ProjectSection>
 
-                  {/* Solution Section */}
-                  <ProjectSection type="solution">
-                    <SectionLabel icon="✓">Solution / Approach</SectionLabel>
-                    <SectionContent>
-                      <p>{project.solution.approach}</p>
-                      {project.solution.keyPoints && project.solution.keyPoints.length > 0 && (
-                        <KeyPoints>
-                          {project.solution.keyPoints.map((point, idx) => (
-                            <KeyPoint key={idx}>{point}</KeyPoint>
-                          ))}
-                        </KeyPoints>
-                      )}
-                    </SectionContent>
-                  </ProjectSection>
+                    {/* Solution Section */}
+                    <ProjectSection type="solution">
+                      <SectionLabel>✓ Solution</SectionLabel>
+                      <SectionContent>
+                        <p>{project.solution.approach}</p>
+                        {project.solution.keyPoints && project.solution.keyPoints.length > 0 && (
+                          <KeyPoints>
+                            {project.solution.keyPoints.map((point, idx) => (
+                              <KeyPoint key={idx}>{point}</KeyPoint>
+                            ))}
+                          </KeyPoints>
+                        )}
+                      </SectionContent>
+                    </ProjectSection>
 
-                  {/* Results Section */}
-                  <ProjectSection type="results">
-                    <SectionLabel icon="⭐">Results / Impact</SectionLabel>
-                    <SectionContent>
-                      {project.results.metrics && project.results.metrics.length > 0 && (
-                        <MetricsList>
-                          {project.results.metrics.map((metric, idx) => (
-                            <MetricItem key={idx}>{metric}</MetricItem>
-                          ))}
-                        </MetricsList>
-                      )}
-                      <p style={{ marginTop: "8px" }}>{project.results.impact}</p>
-                    </SectionContent>
-                  </ProjectSection>
+                    {/* Results Section */}
+                    <ProjectSection type="results">
+                      <SectionLabel>⭐ Results</SectionLabel>
+                      <SectionContent>
+                        {project.results.metrics && project.results.metrics.length > 0 && (
+                          <MetricsList>
+                            {project.results.metrics.map((metric, idx) => (
+                              <MetricItem key={idx}>{metric}</MetricItem>
+                            ))}
+                          </MetricsList>
+                        )}
+                        <p style={{ marginTop: "8px" }}>{project.results.impact}</p>
+                      </SectionContent>
+                    </ProjectSection>
 
-                  {/* Tech Stack */}
-                  <TechStackContainer>
-                    {project.tech.map((tech) => (
-                      <TechBadge key={tech}>{tech}</TechBadge>
-                    ))}
-                  </TechStackContainer>
-                </CardContentStyled>
-              </StyledCard>
-            </motion.div>
+                    {/* Tech Stack */}
+                    <TechStackContainer>
+                      {project.tech.map((tech) => (
+                        <TechBadge key={tech}>{tech}</TechBadge>
+                      ))}
+                    </TechStackContainer>
+                  </ProjectContentWrapper>
+                </ProjectItem>
+              </TimelineConnector>
+            </ProjectItemWrapper>
           ))}
-        </ProjectsGrid>
+        </ProjectsList>
       </ProjectsContainer>
     </ProjectsSection>
   );

@@ -38,6 +38,8 @@ export const lightTheme = {
     gray700: '#374151',
     gray800: '#1f2937',
     gray900: '#111827',
+    // Primary accent color
+    accentBlue: '#0C9EF2',
   },
   spacing: {
     0: '0',
