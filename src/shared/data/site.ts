@@ -24,7 +24,32 @@ export const heroCopy = {
 
 export const aboutCopy = {
   title: "About Me",
+  introLabel: "Introduction",
+  careerLabel: "Career Summary",
+  educationLabel: "Education",
+  certificationLabel: "Certification",
+  skillsLabel: "Skills",
   intro: "빠르게 변화하는 AI 시대에 기술과 함께 성장하는 프론트엔드 개발자 김권희입니다. \"AI가 개발자를 대체한다\"라는 말보단, AI를 깊이 이해하고 잘 다루는 개발자의 가치가 더 커지는 시기라고 믿습니다. 실제 업무 전반에 AI 도구를 적극 활용해 개발 효율과 결과물의 완성도를 높이고 있으며, 앞으로는 팀과 서비스의 생산성을 극대화할 수 있는 역량을 갖춘 개발자로 성장하고자 합니다.",
+  career: {
+    title: "Career Summary",
+    summary: [
+      {
+        category: "Front end Developer 직무 관련 (총 5년차)",
+        items: [
+          "2022.12 - 2025.08 (주)플필 : Front end Developer 담당",
+          "2020.09 - 2022.11 (주)딜리셔스랑고 온라인 개발팀 : Front end Developer 담당",
+        ],
+      },
+      {
+        category: "Engineer 직무 관련 (3년)",
+        items: [
+          "2017.01 - 2020.09 (주)주안솔루션 : 개발 본부 엔지니어 담당 (대리)",
+          "SK Hynix, SK 이노베이션, 한국지역난방공사, 아모레퍼시픽, 한국수력원자력",
+          "공장 자동화 및 데이터 고도화 작업",
+        ],
+      },
+    ],
+  },
   education: {
     formal: [
       {

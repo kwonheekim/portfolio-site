@@ -1,4 +1,5 @@
 import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { siteConfig } from "./site";
 
 export interface SocialLink {
   icon: typeof Mail;
@@ -10,21 +11,21 @@ export const socialLinks: SocialLink[] = [
   {
     icon: Mail,
     label: "Email",
-    href: "mailto:your.email@example.com", // 실제 이메일로 변경하세요
+    href: `mailto:${siteConfig.links.email}`,
   },
   {
     icon: Github,
     label: "GitHub",
-    href: "https://github.com/your-username", // 실제 GitHub URL로 변경하세요
+    href: siteConfig.links.github,
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
-    href: "https://linkedin.com/in/your-profile", // 실제 LinkedIn URL로 변경하세요
+    href: siteConfig.links.linkedin,
   },
   {
     icon: Twitter,
     label: "Twitter",
-    href: "https://twitter.com/your-handle", // 실제 Twitter URL로 변경하세요
+    href: siteConfig.links.twitter,
   },
 ];

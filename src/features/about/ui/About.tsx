@@ -143,17 +143,17 @@ const SkillText = styled.p`
 const EducationSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 8px;
 `;
 
 const EducationCategory = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 
   &:nth-child(2) {
+    margin-top: 24px;
     padding-top: 24px;
-    border-top: 1px solid ${lightTheme.colors.gray200};
   }
 `;
 
@@ -172,18 +172,16 @@ const CategoryTitle = styled.h4`
 const EducationItem = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid ${lightTheme.colors.gray200};
+  gap: 4px;
+  padding-bottom: 8px;
 
   &:last-child {
-    border-bottom: none;
     padding-bottom: 0;
   }
 
   @media (max-width: ${lightTheme.breakpoints.sm}) {
-    gap: 6px;
-    padding-bottom: 12px;
+    gap: 3px;
+    padding-bottom: 6px;
   }
 
   &:focus-visible {
@@ -192,37 +190,66 @@ const EducationItem = styled.div`
   }
 `;
 
-const EducationPeriod = styled.p`
+const EducationPeriod = styled.span`
   font-size: 0.875rem;
   color: ${lightTheme.colors.accentBlue};
   margin: 0;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 6px;
+  margin-right: 8px;
 `;
 
-const EducationTitle = styled.p`
+const EducationTitle = styled.span`
   font-size: 1rem;
   color: ${lightTheme.colors.foreground};
   margin: 0;
   font-weight: 600;
-  margin-bottom: 4px;
 `;
 
-const EducationOrganization = styled.p`
+const EducationRow = styled.p`
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+const EducationOrganization = styled.span`
   font-size: 0.875rem;
   color: ${lightTheme.colors.gray600};
   margin: 0;
   font-weight: 400;
 `;
 
-// const EducationDescription = styled.p`
-//   font-size: 0.875rem;
-//   color: ${lightTheme.colors.gray700};
-//   margin: 0;
-//   line-height: 1.5;
-// `;
+const CareerSection = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const CareerCategory = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const CareerCategoryTitle = styled.h4`
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: ${lightTheme.colors.foreground};
+  margin: 0;
+  margin-bottom: 8px;
+`;
+
+const CareerItem = styled.p`
+  font-size: 0.875rem;
+  color: ${lightTheme.colors.gray700};
+  margin: 0;
+  line-height: 1.6;
+  padding-left: 12px;
+  border-left: 2px solid ${lightTheme.colors.accentBlue};
+`;
 
 export function About() {
   const ref = useRef(null);
@@ -253,7 +280,7 @@ export function About() {
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                 transition={getAnimationConfig(0.6, 0.3)}
               >
-                <SectionLabel>보유 스킬</SectionLabel>
+                <SectionLabel>{aboutCopy.skillsLabel}</SectionLabel>
                 {skillsData.map((skillGroup) => (
                   <SkillCategory key={skillGroup.category}>
                     <CategoryName>{skillGroup.category}</CategoryName>
@@ -270,9 +297,25 @@ export function About() {
                 transition={getAnimationConfig(0.6, 0.2)}
               >
                 <NameAccent />
-                <SectionLabel>간단한 소개</SectionLabel>
+                <SectionLabel>{aboutCopy.introLabel}</SectionLabel>
                 <IntroText>{aboutCopy.intro}</IntroText>
               </IntroSection>
+
+              <CareerSection
+                initial={{ opacity: 0, x: 50 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={getAnimationConfig(0.6, 0.3)}
+              >
+                <SectionLabel>{aboutCopy.careerLabel}</SectionLabel>
+                {aboutCopy.career.summary.map((career, index) => (
+                  <CareerCategory key={index}>
+                    <CareerCategoryTitle>{career.category}</CareerCategoryTitle>
+                    {career.items.map((item, itemIndex) => (
+                      <CareerItem key={itemIndex}>{item}</CareerItem>
+                    ))}
+                  </CareerCategory>
+                ))}
+              </CareerSection>
 
               <EducationSection
                 initial={{ opacity: 0, x: 50 }}
@@ -280,22 +323,26 @@ export function About() {
                 transition={getAnimationConfig(0.6, 0.4)}
               >
                 <EducationCategory>
-                  <CategoryTitle>학력</CategoryTitle>
+                  <CategoryTitle>{aboutCopy.educationLabel}</CategoryTitle>
                   {aboutCopy.education.formal.map((edu, index) => (
                     <EducationItem key={index}>
-                      <EducationPeriod>{edu.period}</EducationPeriod>
-                      <EducationTitle>{edu.title}</EducationTitle>
+                      <EducationRow>
+                        <EducationPeriod>{edu.period}</EducationPeriod>
+                        <EducationTitle>{edu.title}</EducationTitle>
+                      </EducationRow>
                     </EducationItem>
                   ))}
                 </EducationCategory>
 
                 <EducationCategory>
-                  <CategoryTitle>자격증</CategoryTitle>
+                  <CategoryTitle>{aboutCopy.certificationLabel}</CategoryTitle>
                   {aboutCopy.education.certification.map((cert, index) => (
                     <EducationItem key={index}>
-                      <EducationPeriod>{cert.period}</EducationPeriod>
-                      <EducationTitle>{cert.title}</EducationTitle>
-                      <EducationOrganization>주관: {cert.organization}</EducationOrganization>
+                      <EducationRow>
+                        <EducationPeriod>{cert.period}</EducationPeriod>
+                        <EducationTitle>{cert.title}</EducationTitle>
+                        <EducationOrganization>주관: {cert.organization}</EducationOrganization>
+                      </EducationRow>
                     </EducationItem>
                   ))}
                 </EducationCategory>

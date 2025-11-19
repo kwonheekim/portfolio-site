@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
 import styled from "@emotion/styled";
+import { AlertCircle, CheckCircle, Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, Badge } from "@/shared/ui";
 import { projectsData } from "@/shared/data";
 import { lightTheme } from "@/styles/emotion-theme";
@@ -12,7 +13,7 @@ const ProjectsSection = styled.section`
   padding-bottom: 96px;
   padding-left: 24px;
   padding-right: 24px;
-  background-color: #f0f0f2;
+  background-color: #f5f5f7;
 `;
 
 const ProjectsContainer = styled.div`
@@ -156,6 +157,13 @@ const SectionLabel = styled.h4`
   display: flex;
   align-items: center;
   gap: 8px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: ${lightTheme.colors.accentBlue};
+  }
 `;
 
 const SectionContent = styled.div`
@@ -276,7 +284,10 @@ export function Projects() {
                   <ProjectContentWrapper>
                     {/* Background Section */}
                     <ProjectSection type="background">
-                      <SectionLabel>⚠️ Background</SectionLabel>
+                      <SectionLabel>
+                        <AlertCircle size={18} />
+                        Background
+                      </SectionLabel>
                       <SectionContent>
                         <p>{project.background.issue}</p>
                         {project.background.challenge && <p>{project.background.challenge}</p>}
@@ -285,7 +296,10 @@ export function Projects() {
 
                     {/* Solution Section */}
                     <ProjectSection type="solution">
-                      <SectionLabel>✓ Solution</SectionLabel>
+                      <SectionLabel>
+                        <CheckCircle size={18} />
+                        Solution
+                      </SectionLabel>
                       <SectionContent>
                         <p>{project.solution.approach}</p>
                         {project.solution.keyPoints && project.solution.keyPoints.length > 0 && (
@@ -300,7 +314,10 @@ export function Projects() {
 
                     {/* Results Section */}
                     <ProjectSection type="results">
-                      <SectionLabel>⭐ Results</SectionLabel>
+                      <SectionLabel>
+                        <Star size={18} />
+                        Results
+                      </SectionLabel>
                       <SectionContent>
                         {project.results.metrics && project.results.metrics.length > 0 && (
                           <MetricsList>
