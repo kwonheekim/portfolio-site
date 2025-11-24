@@ -14,6 +14,7 @@ const HeroSection = styled.section`
   position: relative;
   padding-left: 24px;
   padding-right: 24px;
+  background-color: #ffffff;
 `;
 
 const HeroContainer = styled.div`

@@ -3,7 +3,7 @@ import { useInView } from "motion/react";
 import { useRef } from "react";
 import styled from "@emotion/styled";
 import { AlertCircle, CheckCircle, Star } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, Badge } from "@/shared/ui";
+import { Badge } from "@/shared/ui";
 import { projectsData } from "@/shared/data";
 import { lightTheme } from "@/styles/emotion-theme";
 import { getAnimationConfig, animationDurations } from "@/shared/utils/animation";
@@ -13,7 +13,7 @@ const ProjectsSection = styled.section`
   padding-bottom: 96px;
   padding-left: 24px;
   padding-right: 24px;
-  background-color: #f5f5f7;
+  background-color: #ffffff;
 `;
 
 const ProjectsContainer = styled.div`
@@ -39,13 +39,17 @@ const ProjectsTitle = styled(motion.h2)`
 const ProjectsList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 48px;
 `;
 
 const ProjectItemWrapper = styled(motion.div)`
   display: flex;
   gap: 0;
   position: relative;
+
+  @media (max-width: ${lightTheme.breakpoints.md}) {
+    flex-direction: column;
+  }
 `;
 
 const TimelineMarker = styled.div`
@@ -58,8 +62,10 @@ const TimelineMarker = styled.div`
   flex-shrink: 0;
 
   @media (max-width: ${lightTheme.breakpoints.md}) {
-    width: 100px;
-    padding-right: 20px;
+    width: 100%;
+    padding-right: 0;
+    padding-bottom: 12px;
+    margin-bottom: 8px;
   }
 
   @media (max-width: ${lightTheme.breakpoints.sm}) {
@@ -74,9 +80,39 @@ const PeriodLabel = styled.div`
   font-weight: 600;
   color: ${lightTheme.colors.accentBlue};
   white-space: nowrap;
+  margin-bottom: 8px;
 
   @media (max-width: ${lightTheme.breakpoints.sm}) {
     font-size: 0.8rem;
+  }
+`;
+
+const CompanyInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+const CompanyName = styled.div`
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6b7280;
+  line-height: 1.4;
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    font-size: 0.75rem;
+  }
+`;
+
+const CompanyPosition = styled.div`
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: ${lightTheme.colors.accentBlue};
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+
+  @media (max-width: ${lightTheme.breakpoints.sm}) {
+    font-size: 0.7rem;
   }
 `;
 
@@ -84,22 +120,18 @@ const TimelineConnector = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-left: 2px solid #e5e7eb;
+  border-left: none;
   padding-left: 0;
 `;
 
 const ProjectItem = styled.div`
   padding: 32px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
   background: white;
-  transition: all 0.3s ease;
   margin-bottom: 0;
   border-left: 4px solid ${lightTheme.colors.accentBlue};
-
-  &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-  }
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 
   @media (max-width: ${lightTheme.breakpoints.md}) {
     padding: 24px;
@@ -273,6 +305,14 @@ export function Projects() {
             >
               <TimelineMarker>
                 <PeriodLabel>{project.period}</PeriodLabel>
+                {project.company && (
+                  <CompanyInfo>
+                    <CompanyName>{project.company.name}</CompanyName>
+                    {project.company.position && (
+                      <CompanyPosition>{project.company.position}</CompanyPosition>
+                    )}
+                  </CompanyInfo>
+                )}
               </TimelineMarker>
               <TimelineConnector>
                 <ProjectItem>

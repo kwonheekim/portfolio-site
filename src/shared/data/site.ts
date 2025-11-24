@@ -36,7 +36,7 @@ export const aboutCopy = {
       {
         category: "Front end Developer 직무 관련 (총 5년차)",
         items: [
-          "2022.12 - 2025.08 (주)플필 : Front end Developer 담당",
+          "2022.12 - 2025.09 (주)플필 : Front end Developer 담당",
           "2020.09 - 2022.11 (주)딜리셔스랑고 온라인 개발팀 : Front end Developer 담당",
         ],
       },
