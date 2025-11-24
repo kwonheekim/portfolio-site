@@ -126,7 +126,7 @@ export function Header() {
           </LogoWrapper>
 
           <NavItems>
-            {["About", "Projects", "Contact"].map((item) => (
+            {["About", "Projects"].map((item) => (
               <NavButton
                 key={item}
                 onClick={() => scrollToSection(item.toLowerCase())}
